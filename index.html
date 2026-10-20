@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gurupintar AI Pro - Generator Modul Ajar Kurikulum Merdeka</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Marked.js for Markdown & Table Parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Tailwind Custom Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        eduBlue: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        eduTeal: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar Styles */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Markdown Styles for Rendered AI Output */
+        .markdown-body h1 { font-size: 1.6em; font-weight: 800; color: #1e3a8a; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.4em; margin-top: 1.2em; margin-bottom: 0.6em; }
+        .markdown-body h2 { font-size: 1.3em; font-weight: 700; color: #0d9488; border-bottom: 1px solid #f1f5f9; padding-bottom: 0.3em; margin-top: 1.2em; margin-bottom: 0.5em; }
+        .markdown-body h3 { font-size: 1.1em; font-weight: 700; color: #1e293b; margin-top: 1em; margin-bottom: 0.4em; }
+        .markdown-body p { margin-bottom: 0.8em; line-height: 1.7; color: #334155; }
+        .markdown-body ul { list-style-type: disc; padding-left: 1.5em; margin-bottom: 1em; }
+        .markdown-body ol { list-style-type: decimal; padding-left: 1.5em; margin-bottom: 1em; }
+        .markdown-body li { margin-bottom: 0.3em; color: #334155; line-height: 1.6; }
+        .markdown-body strong { font-weight: 700; color: #0f172a; }
+        .markdown-body blockquote { border-left: 4px solid #0d9488; padding-left: 1em; color: #475569; background: #f0fdfa; margin: 1em 0; padding-top: 0.5em; padding-bottom: 0.5em; border-radius: 0 0.5rem 0.5rem 0; }
+        
+        /* Table Styling inside Markdown Output */
+        .markdown-body table { width: 100%; border-collapse: collapse; margin: 1.2em 0; font-size: 0.9em; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border-radius: 0.5rem; overflow: hidden; }
+        .markdown-body th { background-color: #2563eb; color: white; padding: 10px 14px; text-align: left; font-weight: 600; }
+        .markdown-body td { border-bottom: 1px solid #e2e8f0; padding: 10px 14px; background-color: white; color: #334155; }
+        .markdown-body tr:nth-child(even) td { background-color: #f8fafc; }
+
+        /* Typing Animation */
+        .typing-dot { animation: typing 1.4s infinite ease-in-out both; }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
+        /* Print Layout Rules */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .printable-area, .printable-area * {
+                visibility: visible;
+            }
+            .printable-area {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                margin: 0;
+                padding: 20px;
+                background: white !important;
+                color: black !important;
+                box-shadow: none !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans h-screen flex overflow-hidden">
+
+    <!-- Mobile Navigation Overlay -->
+    <div id="mobile-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 z-30 hidden md:hidden transition-opacity"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar" class="w-80 bg-slate-900 text-white flex-shrink-0 fixed md:relative inset-y-0 left-0 z-40 transform -translate-x-full md:translate-x-0 transition-transform duration-200 ease-in-out flex flex-col shadow-2xl">
+        
+        <!-- App Logo Header -->
+        <div class="p-4 border-b border-slate-800 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-eduBlue-600 to-eduTeal-500 flex items-center justify-center text-white shadow-lg shadow-eduBlue-500/20">
+                    <i class="fa-solid fa-graduation-cap text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-base leading-tight tracking-tight">Gurupintar</h1>
+                    <div class="flex items-center gap-1.5 mt-0.5">
+                        <span class="text-[10px] bg-eduTeal-600 text-white px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">AI Pro</span>
+                        <span class="text-[10px] text-slate-400">Kurmer</span>
+                    </div>
+                </div>
+            </div>
+            <button onclick="toggleSidebar()" class="md:hidden text-slate-400 hover:text-white p-1">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+
+        <!-- Primary Generator Action Button -->
+        <div class="p-4 space-y-2">
+            <button onclick="openModulAjarModal()" class="w-full py-3 px-4 bg-gradient-to-r from-eduBlue-600 to-eduTeal-600 hover:from-eduBlue-700 hover:to-eduTeal-700 text-white font-semibold rounded-xl shadow-lg shadow-eduBlue-900/30 flex items-center justify-center gap-2.5 transition active:scale-95 group">
+                <i class="fa-solid fa-wand-magic-sparkles text-amber-300 group-hover:rotate-12 transition-transform"></i>
+                <span>Buat Modul Ajar</span>
+            </button>
+            
+            <!-- API Key Config Button -->
+            <button onclick="openSettingsModal()" class="w-full py-2 px-3 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold rounded-lg flex items-center justify-between transition border border-slate-700">
+                <span class="flex items-center gap-2"><i class="fa-solid fa-key text-amber-400"></i> Pengaturan API Key</span>
+                <span id="api-status-badge" class="text-[9px] px-1.5 py-0.5 rounded bg-slate-700 text-slate-400 font-bold">Bawaan</span>
+            </button>
+        </div>
+
+        <!-- Scrollable Sidebar Sections -->
+        <div class="px-3 flex-1 overflow-y-auto space-y-6">
+            
+            <!-- Fitur Utama -->
+            <div>
+                <p class="px-3 text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">Fitur Utama</p>
+                <ul class="space-y-1 text-sm font-medium">
+                    <li>
+                        <button onclick="openModulAjarModal()" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800 hover:text-white transition group text-left">
+                            <i class="fa-solid fa-file-pen w-5 text-eduBlue-400 group-hover:scale-110 transition-transform"></i>
+                            <span>Generator Modul Ajar</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="openRubrikModal()" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800 hover:text-white transition group text-left">
+                            <i class="fa-solid fa-table-list w-5 text-eduTeal-400 group-hover:scale-110 transition-transform"></i>
+                            <span>Generator Rubrik</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="quickPrompt('Berikan 5 ide Ice Breaking interaktif tanpa alat durasi 3-5 menit untuk membangkitkan semangat belajar siswa.')" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800 hover:text-white transition group text-left">
+                            <i class="fa-solid fa-icons w-5 text-amber-400 group-hover:scale-110 transition-transform"></i>
+                            <span>Ide Ice Breaking</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="quickPrompt('Bagaimana cara menangani siswa yang kurang fokus dan pasif saat diskusi kelompok? Berikan strategi pedagogik berdiferensiasi.')" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800 hover:text-white transition group text-left">
+                            <i class="fa-solid fa-brain w-5 text-purple-400 group-hover:scale-110 transition-transform"></i>
+                            <span>Solusi Pedagogik</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Bank Template Cepat -->
+            <div>
+                <p class="px-3 text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">Bank Template Cepat</p>
+                <div class="space-y-1.5">
+                    <button onclick="loadTemplatePreset('SD Kelas 3-4 (Fase B)', 'IPAS (IPA & IPS)', 'Problem Based Learning (PBL)', 'Proses Fotosintesis pada Tumbuhan & Peran Cahaya Matahari')" class="w-full text-left p-2.5 rounded-lg bg-slate-800/60 hover:bg-slate-800 border border-slate-700/50 transition group">
+                        <div class="flex items-center justify-between">
+                            <p class="text-xs font-semibold text-eduTeal-300">IPAS SD Kelas 4</p>
+                            <i class="fa-solid fa-bolt text-[10px] text-amber-400 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </div>
+                        <p class="text-[11px] text-slate-400 truncate">Fotosintesis Tumbuhan (PBL)</p>
+                    </button>
+
+                    <button onclick="loadTemplatePreset('SMP Kelas 7-9 (Fase D)', 'Matematika', 'Project Based Learning (PjBL)', 'Penyajian Data & Diagram Batang dalam Kehidupan Nyata')" class="w-full text-left p-2.5 rounded-lg bg-slate-800/60 hover:bg-slate-800 border border-slate-700/50 transition group">
+                        <div class="flex items-center justify-between">
+                            <p class="text-xs font-semibold text-eduBlue-300">Matematika SMP Kelas 7</p>
+                            <i class="fa-solid fa-bolt text-[10px] text-amber-400 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </div>
+                        <p class="text-[11px] text-slate-400 truncate">Penyajian Data (PjBL)</p>
+                    </button>
+
+                    <button onclick="loadTemplatePreset('SMA/SMK Kelas 10 (Fase E)', 'Bahasa Indonesia', 'Discovery Learning', 'Struktur & Ciri Kebahasaan Teks Laporan Hasil Observasi (LHO)')" class="w-full text-left p-2.5 rounded-lg bg-slate-800/60 hover:bg-slate-800 border border-slate-700/50 transition group">
+                        <div class="flex items-center justify-between">
+                            <p class="text-xs font-semibold text-purple-300">B. Indonesia SMA X</p>
+                            <i class="fa-solid fa-bolt text-[10px] text-amber-400 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </div>
+                        <p class="text-[11px] text-slate-400 truncate">Teks LHO (Discovery)</p>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Riwayat Modul Tersimpan (LocalStorage) -->
+            <div>
+                <div class="px-3 flex items-center justify-between mb-2">
+                    <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Riwayat Modul</p>
+                    <button onclick="clearAllHistory()" class="text-[10px] text-rose-400 hover:text-rose-300">Hapus Semua</button>
+                </div>
+                <div id="history-list" class="space-y-1 text-xs">
+                    <p class="px-3 text-slate-500 italic text-[11px]">Belum ada riwayat tersimpan.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Sidebar Footer -->
+        <div class="p-3 border-t border-slate-800 bg-slate-950/40 text-center">
+            <p class="text-xs text-slate-400 font-medium">Gurupintar AI Pro</p>
+            <p class="text-[10px] text-slate-500 mt-0.5">Siap Deploy ke GitHub Pages</p>
+        </div>
+    </aside>
+
+    <!-- Main Workspace Area -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden bg-slate-50">
+        
+        <!-- Header Bar -->
+        <header class="bg-white border-b border-slate-200 px-4 md:px-8 py-3.5 flex items-center justify-between z-10 shadow-sm">
+            <div class="flex items-center gap-3">
+                <button onclick="toggleSidebar()" class="md:hidden w-9 h-9 rounded-lg bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-200">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+                <div>
+                    <h2 class="font-bold text-slate-800 text-base md:text-lg leading-tight">Gurupintar Workspace</h2>
+                    <p class="text-xs text-slate-500 hidden sm:block">Susun Modul Ajar, Rubrik, dan Asesmen Kurikulum Merdeka secara instan.</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <button onclick="openModulAjarModal()" class="hidden sm:flex items-center gap-2 px-3.5 py-1.5 bg-eduBlue-50 text-eduBlue-700 border border-eduBlue-200 hover:bg-eduBlue-100 rounded-lg text-xs font-semibold transition">
+                    <i class="fa-solid fa-plus text-eduBlue-600"></i> Modul Baru
+                </button>
+                <button onclick="openSettingsModal()" class="p-2 border border-slate-200 hover:border-slate-300 text-slate-600 hover:text-slate-800 rounded-lg text-xs font-semibold transition" title="Pengaturan API Key">
+                    <i class="fa-solid fa-gear"></i>
+                </button>
+                <button onclick="resetChat()" class="px-3 py-1.5 border border-slate-200 hover:border-slate-300 text-slate-600 hover:text-slate-800 rounded-lg text-xs font-semibold transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-rotate-left"></i> <span class="hidden sm:inline">Reset</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Messages Chat View -->
+        <div id="chat-container" class="flex-1 overflow-y-auto p-4 md:p-8 space-y-6">
+            
+            <!-- Welcome Hero Card -->
+            <div id="welcome-card" class="max-w-4xl mx-auto bg-gradient-to-br from-white to-slate-50 border border-slate-200/80 rounded-2xl p-6 md:p-8 shadow-sm">
+                <div class="flex flex-col md:flex-row gap-6 items-center">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-eduBlue-600 to-eduTeal-500 text-white flex items-center justify-center text-3xl shadow-xl shadow-eduBlue-500/20 flex-shrink-0">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div class="space-y-2 text-center md:text-left flex-1">
+                        <span class="inline-block px-3 py-1 bg-eduTeal-50 text-eduTeal-700 border border-eduTeal-200 rounded-full text-xs font-bold">Spesialis Kurikulum Merdeka</span>
+                        <h3 class="text-xl font-bold text-slate-800">Selamat Datang di Gurupintar AI Pro</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Pilih fitur generator di bawah ini atau gunakan Bank Template Cepat untuk menghasilkan **Modul Ajar**, **Rubrik Penilaian**, atau **LKPD** lengkap dalam hitungan detik.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6 pt-6 border-t border-slate-200/60">
+                    <button onclick="openModulAjarModal()" class="p-4 rounded-xl border border-slate-200 hover:border-eduBlue-500 hover:bg-eduBlue-50/50 transition text-left group bg-white shadow-xs">
+                        <div class="w-8 h-8 rounded-lg bg-eduBlue-100 text-eduBlue-600 flex items-center justify-center mb-2 font-bold group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-file-pen"></i>
+                        </div>
+                        <p class="font-bold text-sm text-slate-800">Form Modul Ajar</p>
+                        <p class="text-xs text-slate-500 mt-1">Pilih Fase, Mapel, Model PBL/PjBL, CP & LKPD.</p>
+                    </button>
+
+                    <button onclick="openRubrikModal()" class="p-4 rounded-xl border border-slate-200 hover:border-eduTeal-500 hover:bg-eduTeal-50/50 transition text-left group bg-white shadow-xs">
+                        <div class="w-8 h-8 rounded-lg bg-eduTeal-100 text-eduTeal-600 flex items-center justify-center mb-2 font-bold group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-table"></i>
+                        </div>
+                        <p class="font-bold text-sm text-slate-800">Rubrik Penilaian</p>
+                        <p class="text-xs text-slate-500 mt-1">Tabel kriteria kognitif, afektif & psikomotor.</p>
+                    </button>
+
+                    <button onclick="quickPrompt('Berikan panduan penerapan Pembelajaran Berdiferensiasi (Konten, Proses, Produk) untuk kelas heterogen.')" class="p-4 rounded-xl border border-slate-200 hover:border-amber-500 hover:bg-amber-50/50 transition text-left group bg-white shadow-xs">
+                        <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center mb-2 font-bold group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-lightbulb"></i>
+                        </div>
+                        <p class="font-bold text-sm text-slate-800">Trik Pembelajaran</p>
+                        <p class="text-xs text-slate-500 mt-1">Strategi diferensiasi & manajemen kelas.</p>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Sticky Chat Input Bar -->
+        <div class="bg-white border-t border-slate-200 p-3 md:p-4 shadow-lg z-10">
+            <div class="max-w-4xl mx-auto space-y-3">
+                
+                <!-- Quick Suggestion Pills -->
+                <div class="flex gap-2 overflow-x-auto pb-1 scrollbar-none text-xs">
+                    <button onclick="openModulAjarModal()" class="whitespace-nowrap px-3 py-1.5 bg-eduBlue-600 text-white rounded-full font-semibold shadow-xs hover:bg-eduBlue-700 transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-wand-magic-sparkles text-amber-300"></i> Generator Modul Ajar
+                    </button>
+                    <button onclick="quickPrompt('Buatkan 3 Pertanyaan Pemantik yang memicu nalar kritis untuk materi Ekosistem kelas 7 SMP.')" class="whitespace-nowrap px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-full font-medium transition">
+                        ❓ Pertanyaan Pemantik Ekosistem
+                    </button>
+                    <button onclick="quickPrompt('Buatkan template Lembar Kerja Peserta Didik (LKPD) kelompok untuk percobaan sederhana IPA.')" class="whitespace-nowrap px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-full font-medium transition">
+                        📋 Format LKPD Diskusi
+                    </button>
+                </div>
+
+                <!-- Input Box Form -->
+                <div class="flex items-end gap-2 bg-slate-50 border border-slate-300 rounded-2xl p-2 focus-within:border-eduBlue-500 focus-within:ring-2 focus-within:ring-eduBlue-100 transition-all">
+                    <textarea id="user-input" rows="1" placeholder="Ketik pertanyaan atau perintah khusus (contoh: Buatkan asesmen diagnostik IPA)..." class="flex-1 bg-transparent px-3 py-2 text-slate-800 placeholder-slate-400 outline-none resize-none max-h-32 text-sm font-medium" oninput="this.style.height = '';this.style.height = Math.min(this.scrollHeight, 128) + 'px'"></textarea>
+                    
+                    <button id="send-btn" onclick="handleSendText()" class="w-10 h-10 rounded-xl bg-eduBlue-600 hover:bg-eduBlue-700 text-white flex items-center justify-center flex-shrink-0 shadow-md transition active:scale-95 disabled:opacity-50">
+                        <i class="fa-solid fa-paper-plane text-sm"></i>
+                    </button>
+                </div>
+
+                <p class="text-[10px] text-center text-slate-400">Gurupintar AI Pro mendukung penuh regulasi Kurikulum Merdeka Kemendikbudristek.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- ================= MODAL GENERATOR MODUL AJAR ================= -->
+    <div id="modul-ajar-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 hidden items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-2xl max-w-2xl w-full shadow-2xl border border-slate-200 my-8 overflow-hidden transform transition-all scale-95 opacity-0" id="modul-modal-card">
+            
+            <!-- Modal Header -->
+            <div class="bg-gradient-to-r from-eduBlue-700 to-eduTeal-700 p-5 text-white flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-amber-300 font-bold text-lg">
+                        <i class="fa-solid fa-file-pen"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-base md:text-lg">Generator Modul Ajar Kurikulum Merdeka</h3>
+                        <p class="text-xs text-slate-200">Isi parameter di bawah ini untuk menyusun dokumen lengkap.</p>
+                    </div>
+                </div>
+                <button onclick="closeModulAjarModal()" class="text-white/80 hover:text-white p-1 rounded-lg hover:bg-white/10 transition">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Modal Form Body -->
+            <div class="p-6 space-y-4 max-h-[75vh] overflow-y-auto">
+                
+                <!-- Row 1: Fase/Tingkat & Mata Pelajaran -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Tingkat / Fase / Kelas *</label>
+                        <select id="ma-fase" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-medium text-slate-800 focus:ring-2 focus:ring-eduBlue-500 outline-none">
+                            <option value="PAUD (Fase Fondasi)">PAUD (Fase Fondasi)</option>
+                            <option value="SD Kelas 1-2 (Fase A)">SD Kelas 1-2 (Fase A)</option>
+                            <option value="SD Kelas 3-4 (Fase B)" selected>SD Kelas 3-4 (Fase B)</option>
+                            <option value="SD Kelas 5-6 (Fase C)">SD Kelas 5-6 (Fase C)</option>
+                            <option value="SMP Kelas 7-9 (Fase D)">SMP Kelas 7-9 (Fase D)</option>
+                            <option value="SMA/SMK Kelas 10 (Fase E)">SMA/SMK Kelas 10 (Fase E)</option>
+                            <option value="SMA/SMK Kelas 11-12 (Fase F)">SMA/SMK Kelas 11-12 (Fase F)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Mata Pelajaran *</label>
+                        <select id="ma-mapel" onchange="toggleCustomInput('ma-mapel', 'ma-mapel-custom')" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-medium text-slate-800 focus:ring-2 focus:ring-eduBlue-500 outline-none">
+                            <option value="Bahasa Indonesia">Bahasa Indonesia</option>
+                            <option value="Matematika">Matematika</option>
+                            <option value="IPAS (IPA & IPS)" selected>IPAS (IPA & IPS)</option>
+                            <option value="IPA Terpadu">IPA Terpadu</option>
+                            <option value="IPS Terpadu">IPS Terpadu</option>
+                            <option value="Pendidikan Pancasila / PKN">Pendidikan Pancasila / PKN</option>
+                            <option value="Bahasa Inggris">Bahasa Inggris</option>
+                            <option value="PJOK">PJOK</option>
+                            <option value="Seni Budaya / Seni Rupa">Seni Budaya / Seni Rupa</option>
+                            <option value="Informatika">Informatika</option>
+                            <option value="PAI & Budi Pekerti">PAI & Budi Pekerti</option>
+                            <option value="KUSTOM">-- Input Mata Pelajaran Lain --</option>
+                        </select>
+                        <input id="ma-mapel-custom" type="text" placeholder="Tuliskan nama Mapel..." class="w-full mt-2 bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-sm hidden font-medium text-slate-800">
+                    </div>
+                </div>
+
+                <!-- Row 2: Model Pembelajaran & Alokasi Waktu -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Model Pembelajaran *</label>
+                        <select id="ma-model" onchange="toggleCustomInput('ma-model', 'ma-model-custom')" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-medium text-slate-800 focus:ring-2 focus:ring-eduBlue-500 outline-none">
+                            <option value="Problem Based Learning (PBL)" selected>Problem Based Learning (PBL)</option>
+                            <option value="Project Based Learning (PjBL)">Project Based Learning (PjBL)</option>
+                            <option value="Discovery Learning">Discovery Learning</option>
+                            <option value="Inquiry Learning">Inquiry Learning</option>
+                            <option value="Cooperative Learning">Cooperative Learning</option>
+                            <option value="Game-Based Learning">Game-Based Learning</option>
+                            <option value="Pembelajaran Berdiferensiasi">Pembelajaran Berdiferensiasi</option>
+                            <option value="KUSTOM">-- Input Model Lain --</option>
+                        </select>
+                        <input id="ma-model-custom" type="text" placeholder="Tuliskan nama model..." class="w-full mt-2 bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-sm hidden font-medium text-slate-800">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Alokasi Waktu *</label>
+                        <input id="ma-waktu" type="text" value="2 x 35 Menit (1 Pertemuan)" placeholder="Contoh: 2 x 35 Menit" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-medium text-slate-800 focus:ring-2 focus:ring-eduBlue-500 outline-none">
+                    </div>
+                </div>
+
+                <!-- Row 3: Materi Ajar / Topik Spesifik -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Materi Ajar / Topik Pembelajaran *</label>
+                    <textarea id="ma-materi" rows="2" placeholder="Contoh: Proses Fotosintesis & Peran Klorofil dalam Menghasilkan Oksigen" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-sm font-medium text-slate-800 focus:ring-2 focus:ring-eduBlue-500 outline-none resize-none">Proses Fotosintesis pada Tumbuhan & Peran Cahaya Matahari</textarea>
+                </div>
+
+                <!-- Row 4: Capaian Pembelajaran (Opsional) -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Capaian Pembelajaran / CP (Opsional)</label>
+                    <input id="ma-cp" type="text" placeholder="Contoh: Peserta didik menganalisis hubungan antara struktur organ tumbuhan dengan fungsinya" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-sm font-medium text-slate-800 focus:ring-2 focus:ring-eduBlue-500 outline-none">
+                </div>
+
+                <!-- Row 5: Dimensi Profil Pelajar Pancasila -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Profil Pelajar Pancasila (Pilih yang Relevan)</label>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs font-medium text-slate-700">
+                        <label class="flex items-center gap-2 p-2.5 border border-slate-200 rounded-xl bg-slate-50 hover:bg-slate-100 cursor-pointer">
+                            <input type="checkbox" value="Beriman, Bertakwa kepada Tuhan YME, & Berakhlak Mulia" class="ppp-check rounded text-eduBlue-600 focus:ring-eduBlue-500" checked>
+                            <span>Beriman & Akhlak Mulia</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-2.5 border border-slate-200 rounded-xl bg-slate-50 hover:bg-slate-100 cursor-pointer">
+                            <input type="checkbox" value="Bernalar Kritis" class="ppp-check rounded text-eduBlue-600 focus:ring-eduBlue-500" checked>
+                            <span>Bernalar Kritis</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-2.5 border border-slate-200 rounded-xl bg-slate-50 hover:bg-slate-100 cursor-pointer">
+                            <input type="checkbox" value="Gotong Royong" class="ppp-check rounded text-eduBlue-600 focus:ring-eduBlue-500" checked>
+                            <span>Gotong Royong</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-2.5 border border-slate-200 rounded-xl bg-slate-50 hover:bg-slate-100 cursor-pointer">
+                            <input type="checkbox" value="Kreatif" class="ppp-check rounded text-eduBlue-600 focus:ring-eduBlue-500" checked>
+                            <span>Kreatif</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-2.5 border border-slate-200 rounded-xl bg-slate-50 hover:bg-slate-100 cursor-pointer">
+                            <input type="checkbox" value="Mandiri" class="ppp-check rounded text-eduBlue-600 focus:ring-eduBlue-500">
+                            <span>Mandiri</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-2.5 border border-slate-200 rounded-xl bg-slate-50 hover:bg-slate-100 cursor-pointer">
+                            <input type="checkbox" value="Berkebinekaan Global" class="ppp-check rounded text-eduBlue-600 focus:ring-eduBlue-500">
+                            <span>Berkebinekaan Global</span>
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Modal Footer Action -->
+            <div class="bg-slate-50 px-6 py-4 border-t border-slate-200 flex justify-end gap-3">
+                <button onclick="closeModulAjarModal()" class="px-4 py-2.5 text-xs font-bold text-slate-600 hover:bg-slate-200 rounded-xl transition">Batal</button>
+                <button onclick="submitModulAjarForm()" class="px-5 py-2.5 bg-gradient-to-r from-eduBlue-600 to-eduTeal-600 hover:from-eduBlue-700 hover:to-eduTeal-700 text-white text-xs font-bold rounded-xl shadow-md transition flex items-center gap-2">
+                    <i class="fa-solid fa-wand-magic-sparkles text-amber-300"></i> Generate Modul Ajar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MODAL GENERATOR RUBRIK ================= -->
+    <div id="rubrik-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full shadow-2xl border border-slate-200 overflow-hidden">
+            <div class="bg-eduTeal-700 p-4 text-white flex items-center justify-between">
+                <h3 class="font-bold text-base flex items-center gap-2"><i class="fa-solid fa-table"></i> Generator Rubrik Penilaian</h3>
+                <button onclick="closeRubrikModal()" class="text-white/80 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div class="p-5 space-y-4 text-sm">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Jenis Aktivitas yang Dinilai</label>
+                    <input id="rubrik-aktivitas" type="text" placeholder="Contoh: Presentasi Kelompok, Diskusi, Laporan Praktikum" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 font-medium">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Mata Pelajaran & Kelas</label>
+                    <input id="rubrik-mapel" type="text" placeholder="Contoh: Bahasa Indonesia Kelas 10" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 font-medium">
+                </div>
+            </div>
+            <div class="bg-slate-50 px-5 py-3 border-t border-slate-200 flex justify-end gap-2">
+                <button onclick="closeRubrikModal()" class="px-3 py-2 text-xs font-bold text-slate-600 hover:bg-slate-200 rounded-lg">Batal</button>
+                <button onclick="submitRubrikForm()" class="px-4 py-2 bg-eduTeal-600 hover:bg-eduTeal-700 text-white text-xs font-bold rounded-lg shadow">Generate Rubrik</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MODAL PENGATURAN API KEY ================= -->
+    <div id="settings-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-slate-200 overflow-hidden">
+            <div class="bg-slate-800 p-4 text-white flex items-center justify-between">
+                <h3 class="font-bold text-base flex items-center gap-2"><i class="fa-solid fa-key text-amber-400"></i> Pengaturan Gemini API Key</h3>
+                <button onclick="closeSettingsModal()" class="text-white/80 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div class="p-5 space-y-3 text-xs text-slate-600">
+                <p>Masukkan Google Gemini API Key milik Anda sendiri jika ingin menggunakan kuota pribaidi secara mandiri.</p>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Gemini API Key</label>
+                    <input id="input-api-key" type="password" placeholder="AIzaSy..." class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 font-mono text-sm text-slate-800 focus:ring-2 focus:ring-eduBlue-500 outline-none">
+                </div>
+                <p class="text-[11px] text-slate-400">API Key disimpan secara lokal di browser Anda (LocalStorage) dan tidak dikirimkan ke server manapun selain Google API.</p>
+            </div>
+            <div class="bg-slate-50 px-5 py-3 border-t border-slate-200 flex justify-between items-center">
+                <button onclick="resetApiKey()" class="text-rose-600 hover:underline text-xs font-semibold">Gunakan Key Bawaan</button>
+                <div class="flex gap-2">
+                    <button onclick="closeSettingsModal()" class="px-3 py-2 text-xs font-bold text-slate-600 hover:bg-slate-200 rounded-lg">Batal</button>
+                    <button onclick="saveApiKey()" class="px-4 py-2 bg-eduBlue-600 hover:bg-eduBlue-700 text-white text-xs font-bold rounded-lg shadow">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Generic Modal for Notifications/Messages -->
+    <div id="notification-modal" class="fixed inset-0 bg-slate-900/50 z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl text-center space-y-4">
+            <div id="notif-icon" class="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center mx-auto text-xl">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h4 id="notif-title" class="font-bold text-slate-800 text-base">Pemberitahuan</h4>
+            <p id="notif-desc" class="text-xs text-slate-600 leading-relaxed"></p>
+            <button onclick="closeNotification()" class="w-full py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-xl font-semibold text-xs">Tutup</button>
+        </div>
+    </div>
+
+    <!-- Application JavaScript Logic -->
+    <script>
+        // System prompt instructing Gemini AI to adhere to Indonesian Kurikulum Merdeka standards
+        const SYSTEM_PROMPT = `Anda adalah Gurupintar AI Pro, asisten ahli pendidikan terbaik untuk guru di Indonesia yang sangat menguasai Kurikulum Merdeka, Permendikbudristek, dan Taksonomi Bloom Terrevisi.
+
+Tugas Utama Anda:
+1. Menyusun Modul Ajar Kurikulum Merdeka secara SANGAT LENGKAP, DETAIL, TERSTRUKTUR, dan SIAP PAKAI tanpa ada bagian yang dipotong atau dijadikan placeholder.
+2. Menyusun Rubrik Penilaian dalam bentuk TABEL MARKDOWN lengkap dengan kriteria dan interval skor (1-4).
+3. Memberikan solusi pedagogik yang praktis, inklusif, dan mendukung Pembelajaran Berdiferensiasi.
+
+Aturan Output Modul Ajar:
+Jika diminta menyusun Modul Ajar, Anda WAJIB menggunakan struktur lengkap berikut:
+# MODUL AJAR KURIKULUM MERDEKA
+
+## I. INFORMASI UMUM
+- **Identitas Modul**: Satuan Pendidikan, Fase/Kelas, Mata Pelajaran, Alokasi Waktu
+- **Kompetensi Awal**
+- **Profil Pelajar Pancasila** (Sebutkan dan jelaskan keterkaitannya)
+- **Sarana & Prasarana**
+- **Target Peserta Didik** (Reguler/Tipikal, Paham Utuh, Butuh Bimbingan)
+- **Model Pembelajaran** (Termasuk metode spesifik)
+
+## II. KOMPONEN INTI
+- **Tujuan Pembelajaran** (Capaian spesifik)
+- **Pemahaman Bermakna**
+- **Pertanyaan Pemantik** (Minimal 3 pertanyaan memicu nalar kritis)
+- **Kegiatan Pembelajaran**:
+  * Pendahuluan (10-15% waktu)
+  * Kegiatan Inti (Sesuai Sintaks/Tahapan Model Pembelajaran yang dipilih - 70-80% waktu)
+  * Penutup & Refleksi (10% waktu)
+- **Refleksi Guru & Peserta Didik**
+
+## III. ASESMEN & EVALUASI
+- **Asesmen Diagnostik** (Awal)
+- **Asesmen Formatif** (Proses)
+- **Asesmen Sumatif** (Akhir)
+
+## IV. LAMPIRAN
+- **Lembar Kerja Peserta Didik (LKPD)** (Sertakan petunjuk pengerjaan dan tugas nyata untuk siswa)
+- **Bahan Bacaan Ringkas Guru & Peserta Didik**
+- **Glosarium & Daftar Pustaka**
+- **Rubrik Penilaian** (WAJIB DIBUAT TABEL MARKDOWN LENGKAP)
+
+Gunakan Bahasa Indonesia baku, hangat, profesional, dan gunakan sapaan "Bapak/Ibu Guru".`;
+
+        // Default API Key variable (Handled at runtime or user-provided)
+        let customApiKey = localStorage.getItem('GURUPINTAR_API_KEY') || "";
+        let chatHistory = [];
+        let historyData = [];
+
+        const chatContainer = document.getElementById('chat-container');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+
+        // Initialize App on Load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadHistory();
+            updateApiStatusBadge();
+        });
+
+        // Allow Enter key submission
+        userInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleSendText();
+            }
+        });
+
+        function getActiveApiKey() {
+            return customApiKey.trim() !== "" ? customApiKey.trim() : "";
+        }
+
+        function updateApiStatusBadge() {
+            const badge = document.getElementById('api-status-badge');
+            if (customApiKey.trim() !== "") {
+                badge.innerText = "Custom Key";
+                badge.className = "text-[9px] px-1.5 py-0.5 rounded bg-emerald-900/60 text-emerald-300 font-bold";
+            } else {
+                badge.innerText = "Bawaan";
+                badge.className = "text-[9px] px-1.5 py-0.5 rounded bg-slate-700 text-slate-400 font-bold";
+            }
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('mobile-overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+
+        function toggleCustomInput(selectId, customInputId) {
+            const select = document.getElementById(selectId);
+            const customInput = document.getElementById(customInputId);
+            if (select.value === 'KUSTOM') {
+                customInput.classList.remove('hidden');
+                customInput.focus();
+            } else {
+                customInput.classList.add('hidden');
+            }
+        }
+
+        // Open & Close Modul Ajar Modal
+        function openModulAjarModal() {
+            const modal = document.getElementById('modul-ajar-modal');
+            const card = document.getElementById('modul-modal-card');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => {
+                card.classList.remove('scale-95', 'opacity-0');
+                card.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeModulAjarModal() {
+            const modal = document.getElementById('modul-ajar-modal');
+            const card = document.getElementById('modul-modal-card');
+            card.classList.remove('scale-100', 'opacity-100');
+            card.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 200);
+        }
+
+        // Open & Close Rubrik Modal
+        function openRubrikModal() {
+            document.getElementById('rubrik-modal').classList.remove('hidden');
+            document.getElementById('rubrik-modal').classList.add('flex');
+        }
+
+        function closeRubrikModal() {
+            document.getElementById('rubrik-modal').classList.add('hidden');
+            document.getElementById('rubrik-modal').classList.remove('flex');
+        }
+
+        // Open & Close Settings Modal
+        function openSettingsModal() {
+            document.getElementById('input-api-key').value = customApiKey;
+            document.getElementById('settings-modal').classList.remove('hidden');
+            document.getElementById('settings-modal').classList.add('flex');
+        }
+
+        function closeSettingsModal() {
+            document.getElementById('settings-modal').classList.add('hidden');
+            document.getElementById('settings-modal').classList.remove('flex');
+        }
+
+        function saveApiKey() {
+            const key = document.getElementById('input-api-key').value.trim();
+            customApiKey = key;
+            localStorage.setItem('GURUPINTAR_API_KEY', key);
+            updateApiStatusBadge();
+            closeSettingsModal();
+            showNotification("API Key Disimpan", "Pengaturan API Key berhasil diperbarui.", "fa-circle-check text-emerald-600");
+        }
+
+        function resetApiKey() {
+            customApiKey = "";
+            localStorage.removeItem('GURUPINTAR_API_KEY');
+            document.getElementById('input-api-key').value = "";
+            updateApiStatusBadge();
+            closeSettingsModal();
+            showNotification("Key Di-reset", "Aplikasi kembali menggunakan pengaturan API bawaan.", "fa-circle-check text-emerald-600");
+        }
+
+        // Notification Helper
+        function showNotification(title, desc, icon = 'fa-triangle-exclamation') {
+            document.getElementById('notif-title').innerText = title;
+            document.getElementById('notif-desc').innerText = desc;
+            document.getElementById('notif-icon').innerHTML = `<i class="fa-solid ${icon}"></i>`;
+            document.getElementById('notification-modal').classList.remove('hidden');
+            document.getElementById('notification-modal').classList.add('flex');
+        }
+
+        function closeNotification() {
+            document.getElementById('notification-modal').classList.add('hidden');
+            document.getElementById('notification-modal').classList.remove('flex');
+        }
+
+        // Load Preset from Bank Template Cepat
+        function loadTemplatePreset(fase, mapel, model, materi) {
+            document.getElementById('ma-fase').value = fase;
+            document.getElementById('ma-mapel').value = mapel;
+            document.getElementById('ma-model').value = model;
+            document.getElementById('ma-materi').value = materi;
+            openModulAjarModal();
+        }
+
+        // Submit Handler for Modul Ajar Form
+        function submitModulAjarForm() {
+            const fase = document.getElementById('ma-fase').value;
+            let mapel = document.getElementById('ma-mapel').value;
+            if (mapel === 'KUSTOM') {
+                mapel = document.getElementById('ma-mapel-custom').value.trim() || 'Mata Pelajaran';
+            }
+
+            let model = document.getElementById('ma-model').value;
+            if (model === 'KUSTOM') {
+                model = document.getElementById('ma-model-custom').value.trim() || 'Model Pembelajaran Terpadu';
+            }
+
+            const waktu = document.getElementById('ma-waktu').value.trim() || '2 x 35 Menit';
+            const materi = document.getElementById('ma-materi').value.trim();
+            const cp = document.getElementById('ma-cp').value.trim();
+
+            if (!materi) {
+                showNotification("Materi Belum Diisi", "Mohon tuliskan materi atau topik spesifik yang ingin diajarkan.");
+                return;
+            }
+
+            // Gather Selected PPP Checkboxes
+            const pppChecked = Array.from(document.querySelectorAll('.ppp-check:checked')).map(cb => cb.value);
+            const pppText = pppChecked.length > 0 ? pppChecked.join(', ') : 'Bernalar Kritis, Mandiri';
+
+            closeModulAjarModal();
+
+            // Construct Structured Prompt
+            const prompt = `Buatkan Modul Ajar Kurikulum Merdeka LENGKAP dan SIAP PAKAI dengan parameter berikut:
+- **Tingkat / Fase / Kelas**: ${fase}
+- **Mata Pelajaran**: ${mapel}
+- **Model Pembelajaran**: ${model}
+- **Materi Ajar / Topik**: ${materi}
+${cp ? `- **Capaian Pembelajaran (CP)**: ${cp}` : ''}
+- **Alokasi Waktu**: ${waktu}
+- **Profil Pelajar Pancasila**: ${pppText}
+
+Pastikan menyertakan sintaks lengkap model ${model} pada kegiatan inti, LKPD, serta Rubrik Penilaian dalam bentuk TABEL.`;
+
+            sendPromptToAI(prompt, `Modul Ajar: ${materi} (${fase})`, { topic: materi, subject: mapel, phase: fase });
+        }
+
+        function submitRubrikForm() {
+            const aktivitas = document.getElementById('rubrik-aktivitas').value.trim();
+            const mapel = document.getElementById('rubrik-mapel').value.trim();
+
+            if (!aktivitas) {
+                showNotification("Aktivitas Kosong", "Isi jenis aktivitas yang ingin dibuatkan rubriknya.");
+                return;
+            }
+
+            closeRubrikModal();
+            const prompt = `Buatkan Rubrik Penilaian Pembelajaran Komprehensif dalam BENTUK TABEL MARKDOWN untuk:
+- Jenis Aktivitas: ${aktivitas}
+- Mata Pelajaran / Kelas: ${mapel || 'Umum'}
+
+Rubrik harus mencakup:
+1. Kriteria Penilaian (Aspek Sikap, Pengetahuan, & Keterampilan)
+2. Deskriptor Kinerja untuk Skor 4 (Sangat Baik), 3 (Baik), 2 (Cukup), dan 1 (Perlu Bimbingan)
+3. Rumus/Panduan Konversi Nilai Akhir.`;
+
+            sendPromptToAI(prompt, `Rubrik Penilaian: ${aktivitas}`);
+        }
+
+        function quickPrompt(promptText) {
+            sendPromptToAI(promptText);
+        }
+
+        function handleSendText() {
+            const text = userInput.value.trim();
+            if (!text) return;
+            
+            userInput.value = '';
+            userInput.style.height = 'auto';
+            sendPromptToAI(text);
+        }
+
+        // Core AI Dispatcher using Gemini API
+        async function sendPromptToAI(promptText, displayTitle = null, metaInfo = null) {
+            // Hide welcome card if present
+            const welcomeCard = document.getElementById('welcome-card');
+            if (welcomeCard) welcomeCard.remove();
+
+            // Append User Message UI
+            appendUserMessage(displayTitle || promptText);
+
+            // Show Loading Indicator
+            const loadingId = appendLoading();
+            setLoadingState(true);
+
+            try {
+                const apiKey = getActiveApiKey();
+                const targetUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+                // Build Gemini Payload
+                const contents = [...chatHistory, { role: "user", parts: [{ text: promptText }] }];
+                const payload = {
+                    contents: contents,
+                    systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] }
+                };
+
+                const response = await fetchWithRetry(targetUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API Error Code: ${response.status}`);
+                }
+
+                const result = await response.json();
+                const aiResponseText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                if (aiResponseText) {
+                    // Update conversation history
+                    chatHistory.push({ role: "user", parts: [{ text: promptText }] });
+                    chatHistory.push({ role: "model", parts: [{ text: aiResponseText }] });
+
+                    removeElement(loadingId);
+                    appendAIMessage(aiResponseText, displayTitle);
+
+                    // Save to LocalStorage History
+                    const savedTitle = displayTitle || (metaInfo ? metaInfo.topic : 'Diskusi Pembelajaran');
+                    saveToHistory(savedTitle, aiResponseText, metaInfo);
+                } else {
+                    throw new Error("Respon AI tidak dapat diproses.");
+                }
+
+            } catch (err) {
+                console.error(err);
+                removeElement(loadingId);
+                showNotification("Gagal Menghubungi Server AI", "Terjadi kesalahan saat memproses permintaan. Silakan periksa koneksi internet atau masukan API Key sendiri di menu Pengaturan.", "fa-triangle-exclamation text-rose-500");
+            } finally {
+                setLoadingState(false);
+            }
+        }
+
+        // Fetch wrapper with exponential backoff
+        async function fetchWithRetry(url, options, retries = 3, backoff = 1000) {
+            try {
+                const response = await fetch(url, options);
+                if (response.status === 429 && retries > 0) {
+                    await new Promise(r => setTimeout(r, backoff));
+                    return fetchWithRetry(url, options, retries - 1, backoff * 2);
+                }
+                return response;
+            } catch (err) {
+                if (retries > 0) {
+                    await new Promise(r => setTimeout(r, backoff));
+                    return fetchWithRetry(url, options, retries - 1, backoff * 2);
+                }
+                throw err;
+            }
+        }
+
+        // UI DOM Builders
+        function appendUserMessage(text) {
+            const div = document.createElement('div');
+            div.className = 'flex gap-3 justify-end items-end max-w-4xl mx-auto';
+            div.innerHTML = `
+                <div class="bg-eduBlue-600 text-white shadow-sm rounded-2xl rounded-tr-none px-5 py-3.5 max-w-2xl">
+                    <p class="text-sm leading-relaxed whitespace-pre-wrap">${escapeHtml(text)}</p>
+                </div>
+            `;
+            chatContainer.appendChild(div);
+            scrollToBottom();
+        }
+
+        function appendAIMessage(markdownText, docTitle = "Dokumen Gurupintar") {
+            const msgId = 'msg-' + Date.now();
+            const div = document.createElement('div');
+            div.className = 'flex gap-3 max-w-4xl mx-auto';
+            
+            const renderedHtml = marked.parse(markdownText);
+
+            div.innerHTML = `
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-eduBlue-600 to-eduTeal-500 text-white flex items-center justify-center text-lg shadow-md flex-shrink-0 mt-1">
+                    <i class="fa-solid fa-robot"></i>
+                </div>
+                <div class="flex-1 bg-white border border-slate-200/80 shadow-sm rounded-2xl rounded-tl-none p-6 text-slate-800 markdown-body printable-area relative group" id="${msgId}">
+                    ${renderedHtml}
+
+                    <!-- Action Bar (Copy, Word & Print) -->
+                    <div class="mt-6 pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 no-print">
+                        <span class="text-[11px] text-slate-400 font-medium">Gurupintar AI Pro • Kurikulum Merdeka</span>
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="copyContent('${msgId}')" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold transition flex items-center gap-1.5">
+                                <i class="fa-regular fa-copy"></i> Salin Teks
+                            </button>
+                            <button onclick="exportToWord('${msgId}', '${escapeHtml(docTitle)}')" class="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-lg text-xs font-semibold transition flex items-center gap-1.5">
+                                <i class="fa-solid fa-file-word text-blue-600"></i> Ekspor .DOCX
+                            </button>
+                            <button onclick="printContent('${msgId}')" class="px-3 py-1.5 bg-eduTeal-50 hover:bg-eduTeal-100 text-eduTeal-700 border border-eduTeal-200 rounded-lg text-xs font-semibold transition flex items-center gap-1.5">
+                                <i class="fa-solid fa-print"></i> Cetak / PDF
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            chatContainer.appendChild(div);
+            scrollToBottom();
+        }
+
+        function appendLoading() {
+            const id = 'loading-' + Date.now();
+            const div = document.createElement('div');
+            div.id = id;
+            div.className = 'flex gap-3 max-w-4xl mx-auto';
+            div.innerHTML = `
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-eduBlue-600 to-eduTeal-500 text-white flex items-center justify-center text-lg shadow-md flex-shrink-0">
+                    <i class="fa-solid fa-robot"></i>
+                </div>
+                <div class="bg-white border border-slate-200 shadow-sm rounded-2xl rounded-tl-none px-6 py-4 flex items-center gap-2">
+                    <span class="text-xs font-semibold text-slate-500">Gurupintar sedang menyusun dokumen...</span>
+                    <div class="flex gap-1 ml-2">
+                        <div class="w-2 h-2 bg-eduBlue-600 rounded-full typing-dot"></div>
+                        <div class="w-2 h-2 bg-eduTeal-600 rounded-full typing-dot"></div>
+                        <div class="w-2 h-2 bg-amber-500 rounded-full typing-dot"></div>
+                    </div>
+                </div>
+            `;
+            chatContainer.appendChild(div);
+            scrollToBottom();
+            return id;
+        }
+
+        function removeElement(id) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        }
+
+        function scrollToBottom() {
+            chatContainer.scrollTo({ top: chatContainer.scrollHeight, behavior: 'smooth' });
+        }
+
+        function setLoadingState(isLoading) {
+            userInput.disabled = isLoading;
+            sendBtn.disabled = isLoading;
+            sendBtn.innerHTML = isLoading 
+                ? '<i class="fa-solid fa-spinner fa-spin text-sm"></i>' 
+                : '<i class="fa-solid fa-paper-plane text-sm"></i>';
+        }
+
+        function resetChat() {
+            chatContainer.innerHTML = '';
+            chatHistory = [];
+            
+            const welcomeDiv = document.createElement('div');
+            welcomeDiv.id = 'welcome-card';
+            welcomeDiv.className = 'max-w-4xl mx-auto bg-gradient-to-br from-white to-slate-50 border border-slate-200/80 rounded-2xl p-6 md:p-8 shadow-sm';
+            welcomeDiv.innerHTML = `
+                <div class="flex flex-col md:flex-row gap-6 items-center">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-eduBlue-600 to-eduTeal-500 text-white flex items-center justify-center text-3xl shadow-xl shadow-eduBlue-500/20 flex-shrink-0">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div class="space-y-2 text-center md:text-left flex-1">
+                        <span class="inline-block px-3 py-1 bg-eduTeal-50 text-eduTeal-700 border border-eduTeal-200 rounded-full text-xs font-bold">Spesialis Kurikulum Merdeka</span>
+                        <h3 class="text-xl font-bold text-slate-800">Sesi Di-reset</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">Silakan pilih menu generator di bawah ini untuk memulai dokumen baru.</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6 pt-6 border-t border-slate-200/60">
+                    <button onclick="openModulAjarModal()" class="p-4 rounded-xl border border-slate-200 hover:border-eduBlue-500 hover:bg-eduBlue-50/50 transition text-left group bg-white">
+                        <p class="font-bold text-sm text-slate-800">Form Modul Ajar</p>
+                        <p class="text-xs text-slate-500 mt-1">Pilih Fase, Mapel & Sintaks.</p>
+                    </button>
+                    <button onclick="openRubrikModal()" class="p-4 rounded-xl border border-slate-200 hover:border-eduTeal-500 hover:bg-eduTeal-50/50 transition text-left group bg-white">
+                        <p class="font-bold text-sm text-slate-800">Rubrik Penilaian</p>
+                        <p class="text-xs text-slate-500 mt-1">Tabel kriteria & skor 1-4.</p>
+                    </button>
+                    <button onclick="quickPrompt('Berikan ide ice breaking 3 menit')" class="p-4 rounded-xl border border-slate-200 hover:border-amber-500 hover:bg-amber-50/50 transition text-left group bg-white">
+                        <p class="font-bold text-sm text-slate-800">Ice Breaking</p>
+                        <p class="text-xs text-slate-500 mt-1">Permainan pemantik kelas.</p>
+                    </button>
+                </div>
+            `;
+            chatContainer.appendChild(welcomeDiv);
+        }
+
+        // ================= EXPORT & UTILITY FUNCTIONS =================
+
+        // 1. Copy Content Functionality
+        function copyContent(containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            const clone = container.cloneNode(true);
+            const noPrint = clone.querySelector('.no-print');
+            if (noPrint) noPrint.remove();
+
+            const textToCopy = clone.innerText || clone.textContent;
+
+            const textarea = document.createElement('textarea');
+            textarea.value = textToCopy.trim();
+            document.body.appendChild(textarea);
+            textarea.select();
+
+            try {
+                document.execCommand('copy');
+                showNotification("Tersalin!", "Dokumen berhasil disalin ke clipboard.", "fa-circle-check text-emerald-600");
+            } catch (err) {
+                console.error(err);
+            } finally {
+                document.body.removeChild(textarea);
+            }
+        }
+
+        // 2. Export to MS Word (.doc) Functionality
+        function exportToWord(elementId, filename = "Modul_Ajar_Gurupintar") {
+            const element = document.getElementById(elementId);
+            if (!element) return;
+
+            const clone = element.cloneNode(true);
+            const noPrintElements = clone.querySelectorAll('.no-print');
+            noPrintElements.forEach(el => el.remove());
+
+            const htmlContent = clone.innerHTML;
+
+            // Microsoft Word HTML Wrapper with Styles
+            const wordHTML = `
+                <html xmlns:o='urn:schemas-microsoft-com:office:office' 
+                      xmlns:w='urn:schemas-microsoft-com:office:word' 
+                      xmlns='http://www.w3.org/TR/REC-html40'>
+                <head>
+                    <meta charset='utf-8'>
+                    <title>${filename}</title>
+                    <style>
+                        body { font-family: 'Calibri', 'Arial', sans-serif; font-size: 11pt; line-height: 1.5; color: #111; }
+                        h1 { font-size: 18pt; color: #1e3a8a; border-bottom: 2pt solid #2563eb; padding-bottom: 4pt; font-weight: bold; margin-top: 12pt; }
+                        h2 { font-size: 14pt; color: #0d9488; border-bottom: 1pt solid #cbd5e1; padding-bottom: 3pt; font-weight: bold; margin-top: 14pt; }
+                        h3 { font-size: 12pt; color: #1e293b; font-weight: bold; margin-top: 10pt; }
+                        p { margin-bottom: 6pt; }
+                        table { border-collapse: collapse; width: 100%; margin: 10pt 0; }
+                        th, td { border: 1pt solid #94a3b8; padding: 6pt 8pt; font-size: 10pt; text-align: left; }
+                        th { background-color: #2563eb; color: #ffffff; font-weight: bold; }
+                        blockquote { background-color: #f1f5f9; border-left: 3pt solid #0d9488; padding: 6pt 10pt; margin: 8pt 0; }
+                        ul, ol { margin-left: 18pt; margin-bottom: 8pt; }
+                    </style>
+                </head>
+                <body>
+                    ${htmlContent}
+                </body>
+                </html>
+            `;
+
+            const blob = new Blob(['\ufeff' + wordHTML], {
+                type: 'application/msword'
+            });
+
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${filename.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.doc`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            showNotification("Ekspor Berhasil", "Dokumen Microsoft Word (.doc) berhasil diunduh.", "fa-circle-check text-emerald-600");
+        }
+
+        // 3. Print/PDF Export Functionality
+        function printContent(containerId) {
+            const el = document.getElementById(containerId);
+            if (!el) return;
+
+            el.classList.add('printable-area');
+            window.print();
+            el.classList.remove('printable-area');
+        }
+
+        // ================= LOCALSTORAGE HISTORY SYSTEM =================
+
+        function loadHistory() {
+            try {
+                const stored = localStorage.getItem('GURUPINTAR_HISTORY');
+                historyData = stored ? JSON.parse(stored) : [];
+            } catch(e) {
+                historyData = [];
+            }
+            renderHistorySidebar();
+        }
+
+        function saveToHistory(title, markdownContent, metaInfo = null) {
+            const newItem = {
+                id: 'modul-' + Date.now(),
+                title: title,
+                date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }),
+                content: markdownContent,
+                meta: metaInfo
+            };
+            historyData.unshift(newItem);
+            if (historyData.length > 20) historyData.pop(); // Keep max 20 entries
+            localStorage.setItem('GURUPINTAR_HISTORY', JSON.stringify(historyData));
+            renderHistorySidebar();
+        }
+
+        function renderHistorySidebar() {
+            const listEl = document.getElementById('history-list');
+            if (!listEl) return;
+
+            if (historyData.length === 0) {
+                listEl.innerHTML = `<p class="px-3 text-slate-500 italic text-[11px]">Belum ada riwayat tersimpan.</p>`;
+                return;
+            }
+
+            listEl.innerHTML = historyData.map(item => `
+                <div class="flex items-center justify-between p-2 rounded-lg bg-slate-800/40 hover:bg-slate-800 border border-slate-700/40 transition group">
+                    <button onclick="loadHistoryItem('${item.id}')" class="flex-1 text-left truncate mr-2">
+                        <p class="font-medium text-slate-200 truncate group-hover:text-eduTeal-300 transition-colors">${escapeHtml(item.title)}</p>
+                        <p class="text-[10px] text-slate-400">${item.date}</p>
+                    </button>
+                    <button onclick="deleteHistoryItem('${item.id}', event)" class="text-slate-500 hover:text-rose-400 p-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <i class="fa-solid fa-trash-can text-xs"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function loadHistoryItem(id) {
+            const item = historyData.find(i => i.id === id);
+            if (!item) return;
+
+            const welcomeCard = document.getElementById('welcome-card');
+            if (welcomeCard) welcomeCard.remove();
+
+            appendAIMessage(item.content, item.title);
+            if (window.innerWidth < 768) toggleSidebar();
+        }
+
+        function deleteHistoryItem(id, event) {
+            event.stopPropagation();
+            historyData = historyData.filter(i => i.id !== id);
+            localStorage.setItem('GURUPINTAR_HISTORY', JSON.stringify(historyData));
+            renderHistorySidebar();
+        }
+
+        function clearAllHistory() {
+            if (confirm("Apakah Anda yakin ingin menghapus seluruh riwayat tersimpan?")) {
+                historyData = [];
+                localStorage.removeItem('GURUPINTAR_HISTORY');
+                renderHistorySidebar();
+            }
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>
