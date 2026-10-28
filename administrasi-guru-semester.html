@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f3f4f6">
+  <title>Satu aplikasi, administrasi guru satu semester. Lihat isinya.</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f3f4f6;
+      background-image: radial-gradient(#d1d5db 0.8px, transparent 0.8px);
+      background-size: 14px 14px;
+    }
+    .feature-card {
+      min-height: 112px;
+      border: 1.5px solid #1E3A8A;
+      border-radius: 12px;
+      background: #fff;
+      padding: 16px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 11px;
+      color: #1E3A8A;
+      text-align: center;
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease;
+    }
+    .feature-card:hover, .feature-card:focus-visible {
+      box-shadow: 0 8px 22px rgba(30,58,138,.16);
+      transform: translateY(-2px);
+      background-color: #f8faff;
+      outline: none;
+    }
+    .feature-card i { font-size: 32px; line-height: 1; }
+    .feature-card span { font-size: 13px; line-height: 1.35; font-weight: 800; }
+    @media (max-width: 360px) {
+      .feature-card { min-height: 102px; padding: 12px 5px; gap: 9px; }
+      .feature-card i { font-size: 27px; }
+      .feature-card span { font-size: 11px; }
+    }
+  </style>
+</head>
+<body class="min-h-screen text-slate-900">
+  <main class="mx-auto w-full max-w-[420px] px-4 pb-7 pt-5 sm:pt-7">
+    <div class="mb-5 flex justify-end">
+      <span class="text-[9px] font-semibold tracking-wide text-slate-500">Tampilan app - data fiktif</span>
+    </div>
+
+    <header class="mb-6">
+      <p class="mb-2 text-[10px] font-extrabold uppercase tracking-[.2em] text-blue-900">Administrasi Guru</p>
+      <h1 class="text-[29px] font-extrabold leading-[1.16] tracking-[-.045em] text-slate-950">
+        Satu aplikasi,<br>administrasi guru<br>satu semester.
+        <span class="mt-1 inline-block bg-yellow-300 px-1.5 py-0.5">Lihat isinya.</span>
+      </h1>
+    </header>
+
+    <section aria-label="Fitur administrasi guru" class="grid grid-cols-3 gap-[10px]">
+      <button class="feature-card" data-feature="Data Kelas Saya" aria-label="Buka fitur Data Kelas Saya"><i class="fa-solid fa-school" aria-hidden="true"></i><span>Data Kelas Saya</span></button>
+      <button class="feature-card" data-feature="CP dan TP" aria-label="Buka fitur CP dan TP"><i class="fa-solid fa-bullseye" aria-hidden="true"></i><span>CP dan TP</span></button>
+      <button class="feature-card" data-feature="ATP" aria-label="Buka fitur ATP"><i class="fa-solid fa-list-check" aria-hidden="true"></i><span>ATP</span></button>
+
+      <button class="feature-card" data-feature="Prota" aria-label="Buka fitur Prota"><i class="fa-regular fa-calendar-days" aria-hidden="true"></i><span>Prota</span></button>
+      <button class="feature-card" data-feature="Promes" aria-label="Buka fitur Promes"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i><span>Promes</span></button>
+      <button class="feature-card" data-feature="Silabus" aria-label="Buka fitur Silabus"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span>Silabus</span></button>
+
+      <button class="feature-card" data-feature="Modul Ajar / RPP" aria-label="Buka fitur Modul Ajar / RPP"><i class="fa-regular fa-file-lines" aria-hidden="true"></i><span>Modul Ajar / RPP</span></button>
+      <button class="feature-card" data-feature="LKPD" aria-label="Buka fitur LKPD"><i class="fa-regular fa-clipboard" aria-hidden="true"></i><span>LKPD</span></button>
+      <button class="feature-card" data-feature="Soal Harian dan Kuis" aria-label="Buka fitur Soal Harian dan Kuis"><i class="fa-solid fa-laptop" aria-hidden="true"></i><span>Soal Harian dan Kuis</span></button>
+
+      <button class="feature-card" data-feature="Asesmen Sumatif" aria-label="Buka fitur Asesmen Sumatif"><i class="fa-solid fa-chart-pie" aria-hidden="true"></i><span>Asesmen Sumatif</span></button>
+      <button class="feature-card" data-feature="Soal STS dan SAS" aria-label="Buka fitur Soal STS dan SAS"><i class="fa-regular fa-file-word" aria-hidden="true"></i><span>Soal STS dan SAS</span></button>
+      <button class="feature-card" data-feature="Daftar Nilai" aria-label="Buka fitur Daftar Nilai"><i class="fa-solid fa-table-cells-large" aria-hidden="true"></i><span>Daftar Nilai</span></button>
+
+      <button class="feature-card" data-feature="Presensi" aria-label="Buka fitur Presensi"><i class="fa-solid fa-check-to-slot" aria-hidden="true"></i><span>Presensi</span></button>
+      <button class="feature-card" data-feature="Jurnal mengajar" aria-label="Buka fitur Jurnal mengajar"><i class="fa-solid fa-book" aria-hidden="true"></i><span>Jurnal mengajar</span></button>
+      <button class="feature-card" data-feature="Deskripsi Rapor" aria-label="Buka fitur Deskripsi Rapor"><i class="fa-regular fa-file-lines" aria-hidden="true"></i><span>Deskripsi Rapor</span></button>
+
+      <button class="feature-card" data-feature="Rekap Nilai Rapor" aria-label="Buka fitur Rekap Nilai Rapor"><i class="fa-solid fa-chart-column" aria-hidden="true"></i><span>Rekap Nilai Rapor</span></button>
+      <button class="feature-card" data-feature="Paket Siap Supervisi" aria-label="Buka fitur Paket Siap Supervisi"><i class="fa-regular fa-folder-open" aria-hidden="true"></i><span>Paket Siap Supervisi</span></button>
+      <button class="feature-card" data-feature="Template Administrasi Kelas" aria-label="Buka fitur Template Administrasi Kelas"><i class="fa-regular fa-file" aria-hidden="true"></i><span>Template Administrasi Kelas</span></button>
+    </section>
+
+    <footer class="mt-6 rounded-xl border border-slate-200 bg-white/90 px-3 py-3 shadow-sm">
+      <div class="flex items-center gap-2.5">
+        <div class="flex h-9 w-9 shrink-0 items-center-center justify-center rounded-lg bg-blue-900 text-lg font-black text-white" aria-label="Logo KapurBiru">K</div>
+        <div class="min-w-0 flex-1">
+          <div class="text-sm font-extrabold tracking-tight text-blue-950">KapurBiru.id</div>
+          <p class="mt-0.5 text-[10px] font-semibold text-slate-500">dari awal sampai akhir semester.</p>
+        </div>
+        <span class="shrink-0 rounded-full border border-slate-200 bg-slate-100 px-2 py-1 text-[9px] font-bold text-slate-500">Bersponsor</span>
+      </div>
+    </footer>
+    <p class="mt-3 text-center text-[9px] font-medium text-slate-400">Contoh tampilan • Semua fitur menggunakan data fiktif</p>
+  </main>
+
+  <script>
+    document.querySelectorAll('[data-feature]').forEach(function (card) {
+      card.addEventListener('click', function () {
+        const feature = card.getAttribute('data-feature');
+        alert('Fitur: ' + feature + '\n\nIni adalah contoh tampilan. Data dan fungsi fitur belum dihubungkan.');
+      });
+    });
+  </script>
+</body>
+</html>
